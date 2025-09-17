@@ -146,7 +146,8 @@ Para las conexiones detalladas entre Arduino y OpenBCI, consultar:
 
 **Diagrama de Conexiones:**
 
-![Diagrama de conexiones Arduino-OpenBCI](images/arduino-openbci-wiring.png)
+<img width="1219" height="1112" alt="image" src="https://github.com/user-attachments/assets/14f23aee-3cd4-477f-ac1b-f52db0a1c79a" />
+
 
 **Conexiones específicas del diagrama:**
 - Arduino Pin 3 → OpenBCI Digital Input D11 (Cable Celeste)
