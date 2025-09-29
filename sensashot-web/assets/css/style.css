@@ -16,29 +16,31 @@ body {
 /* Megaomega Logo */
 .megaomega-logo {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     right: 20px;
     z-index: 1000;
-    opacity: 0.95;
+    opacity: 0.9;
     transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 8px;
-    border-radius: 12px;
-    backdrop-filter: blur(5px);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 12px;
+    border-radius: 15px;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .megaomega-logo:hover {
     opacity: 1;
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
 }
 
 .megaomega-logo img {
-    width: 120px;
+    width: 100px;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     display: block;
+    filter: brightness(1.1) contrast(1.2);
 }
 
 .container {
@@ -807,12 +809,12 @@ input[type="range"]::-webkit-slider-thumb {
 
     /* Logo responsive en móviles */
     .megaomega-logo {
-        top: 15px;
+        bottom: 15px;
         right: 15px;
-        padding: 6px;
+        padding: 8px;
     }
 
     .megaomega-logo img {
-        width: 90px;
+        width: 80px;
     }
 }
