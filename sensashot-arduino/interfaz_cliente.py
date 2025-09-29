@@ -33,6 +33,9 @@ class ArduinoPulsosGUI:
         self.setup_ui()
 
     def setup_ui(self):
+        # Logo Megaomega
+        self.setup_logo()
+
         # Título principal
         title_frame = tk.Frame(self.root, bg='#2c3e50', height=80)
         title_frame.pack(fill='x', pady=(0, 20))
@@ -140,6 +143,49 @@ class ArduinoPulsosGUI:
 
         # Log inicial
         self.log_message("Aplicación iniciada. Configure el puerto COM y presione Conectar.")
+
+    def setup_logo(self):
+        """Configura el logo de Megaomega en la esquina inferior derecha"""
+        try:
+            # Cargar y redimensionar el logo
+            logo_path = os.path.join("imagenes", "Megaomega.png")
+            if os.path.exists(logo_path):
+                # Cargar imagen
+                img = Image.open(logo_path)
+                # Redimensionar a tamaño pequeño (30x30 pixels)
+                img_resized = img.resize((30, 30), Image.Resampling.LANCZOS)
+                self.logo_photo = ImageTk.PhotoImage(img_resized)
+
+                # Crear label para el logo en la esquina inferior derecha
+                self.logo_label = tk.Label(self.root, image=self.logo_photo, bg='#f0f0f0')
+                self.logo_label.place(relx=1.0, rely=1.0, anchor='se', x=-10, y=-10)
+
+                # Tooltip opcional (al pasar el mouse)
+                self.create_tooltip(self.logo_label, "Desarrollado por Megaomega")
+            else:
+                print("Logo Megaomega.png no encontrado en la carpeta imagenes")
+        except Exception as e:
+            print(f"Error cargando logo: {e}")
+
+    def create_tooltip(self, widget, text):
+        """Crea un tooltip para el widget"""
+        def on_enter(event):
+            tooltip = tk.Toplevel()
+            tooltip.wm_overrideredirect(True)
+            tooltip.wm_geometry(f"+{event.x_root+10}+{event.y_root+10}")
+            tooltip.configure(bg='black')
+            label = tk.Label(tooltip, text=text, bg='black', fg='white',
+                           font=('Arial', 8), padx=5, pady=2)
+            label.pack()
+            widget.tooltip = tooltip
+
+        def on_leave(event):
+            if hasattr(widget, 'tooltip'):
+                widget.tooltip.destroy()
+                del widget.tooltip
+
+        widget.bind("<Enter>", on_enter)
+        widget.bind("<Leave>", on_leave)
 
     def toggle_connection(self):
         if not self.connected:

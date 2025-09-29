@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensashot PRO - Sistema de Registro de Estímulos</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Megaomega Logo -->
+    <div class="megaomega-logo">
+        <img src="assets/images/Megaomega.png" alt="Megaomega" />
+    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>Sensashot <span class="pro">PRO</span></h1>
+                </div>
+                <div class="header-info">
+                    <div class="session-info">
+                        <span class="session-label">Sesión:</span>
+                        <span id="sessionTime" class="session-time">00:00:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h2>Sistema de Registro de Estímulos</h2>
+                    <p>Plataforma avanzada para el registro preciso de estímulos sensoriales en investigación y aplicaciones clínicas.</p>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-circle active"></div>
+                    <span>Sistema Activo</span>
+                </div>
+            </section>
+
+            <!-- Instructions Panel -->
+            <section class="instructions-panel" id="instructionsPanel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-info-circle"></i> Instrucciones de Uso</h3>
+                    <button class="toggle-btn" id="toggleInstructions">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                </div>
+                <div class="panel-content">
+                    <div class="instruction-grid">
+                        <div class="instruction-item">
+                            <div class="instruction-icon olfactory">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <h4>Estímulo Olfativo</h4>
+                            <p>Registra el momento exacto de aplicación de estímulos olfatorios. Presiona el botón inmediatamente cuando se aplique el estímulo.</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon haptic">
+                                <i class="fas fa-hand-paper"></i>
+                            </div>
+                            <h4>Estímulo Háptico</h4>
+                            <p>Registra estímulos táctiles, vibratorios o de textura. El timestamp se captura con precisión de milisegundos.</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon visual">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h4>Estímulo Visual</h4>
+                            <p>Presenta estímulos visuales con duración configurable. Opcionalmente muestra imágenes aleatorias del banco de estímulos.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Configuration Panel -->
+            <section class="config-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-cog"></i> Configuración</h3>
+                </div>
+                <div class="config-content">
+                    <div class="config-group">
+                        <label for="exposureTime">Tiempo de Exposición Visual</label>
+                        <div class="input-group">
+                            <input type="range" id="exposureTime" min="500" max="30000" step="500" value="5000">
+                            <span id="exposureValue" class="value-display">5.0s</span>
+                        </div>
+                    </div>
+                    <div class="config-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showImages" checked>
+                            <span class="checkmark"></span>
+                            Mostrar imágenes durante estímulo visual
+                        </label>
+                    </div>
+                    <div class="config-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="soundFeedback" checked>
+                            <span class="checkmark"></span>
+                            Retroalimentación sonora
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stimulus Controls -->
+            <section class="stimulus-controls">
+                <div class="controls-header">
+                    <h3>Controles de Estímulos</h3>
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="totalStimuli">0</span>
+                            <span class="stat-label">Total</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stimulus-grid">
+                    <button class="stimulus-btn olfactory" id="olfactoryBtn" data-type="olfactory">
+                        <div class="btn-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h4>Estímulo Olfativo</h4>
+                            <p>Presionar al aplicar</p>
+                            <span class="counter" id="olfactoryCounter">0</span>
+                        </div>
+                    </button>
+
+                    <button class="stimulus-btn haptic" id="hapticBtn" data-type="haptic">
+                        <div class="btn-icon">
+                            <i class="fas fa-hand-paper"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h4>Estímulo Háptico</h4>
+                            <p>Presionar al aplicar</p>
+                            <span class="counter" id="hapticCounter">0</span>
+                        </div>
+                    </button>
+
+                    <button class="stimulus-btn visual" id="visualBtn" data-type="visual">
+                        <div class="btn-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="btn-content">
+                            <h4>Estímulo Visual</h4>
+                            <p>Mostrar imagen</p>
+                            <span class="counter" id="visualCounter">0</span>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Session Management -->
+            <section class="session-panel">
+                <div class="session-controls">
+                    <button class="action-btn secondary" id="resetBtn">
+                        <i class="fas fa-redo"></i>
+                        Reiniciar Sesión
+                    </button>
+                    <button class="action-btn primary" id="exportBtn">
+                        <i class="fas fa-download"></i>
+                        Exportar Datos
+                    </button>
+                </div>
+            </section>
+
+            <!-- Activity Log -->
+            <section class="log-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-list"></i> Registro de Actividad</h3>
+                    <button class="clear-log-btn" id="clearLogBtn">
+                        <i class="fas fa-trash"></i>
+                        Limpiar
+                    </button>
+                </div>
+                <div class="log-content">
+                    <div id="activityLog" class="activity-log">
+                        <div class="log-entry system">
+                            <span class="timestamp">[00:00:00.000]</span>
+                            <span class="message">Sistema iniciado - Listo para registrar estímulos</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics Panel -->
+            <section class="stats-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-chart-bar"></i> Estadísticas de Sesión</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card olfactory">
+                        <div class="stat-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="olfactoryTotal">0</span>
+                            <span class="stat-title">Olfativos</span>
+                        </div>
+                    </div>
+                    <div class="stat-card haptic">
+                        <div class="stat-icon">
+                            <i class="fas fa-hand-paper"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="hapticTotal">0</span>
+                            <span class="stat-title">Hápticos</span>
+                        </div>
+                    </div>
+                    <div class="stat-card visual">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="visualTotal">0</span>
+                            <span class="stat-title">Visuales</span>
+                        </div>
+                    </div>
+                    <div class="stat-card total">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="sessionTotal">0</span>
+                            <span class="stat-title">Total Sesión</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Visual Stimulus Modal -->
+    <div id="visualModal" class="visual-modal">
+        <div class="modal-content">
+            <img id="stimulusImage" class="stimulus-image" alt="Estímulo Visual">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Sensashot PRO - Sistema de Registro de Estímulos</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

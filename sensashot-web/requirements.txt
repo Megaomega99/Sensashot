@@ -1,0 +1,2 @@
+# Web-only version - no additional Python dependencies required
+# All functionality is handled by HTML/CSS/JavaScript

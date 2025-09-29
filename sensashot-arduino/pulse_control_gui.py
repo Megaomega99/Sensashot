@@ -4,6 +4,8 @@ import serial
 import serial.tools.list_ports
 import time
 import threading
+import os
+from PIL import Image, ImageTk
 
 class ArduinoPulseGUI:
     def __init__(self, root):
@@ -15,6 +17,7 @@ class ArduinoPulseGUI:
         self.connected = False
 
         self.setup_ui()
+        self.setup_logo()
         self.update_ports()
 
     def setup_ui(self):
@@ -146,6 +149,26 @@ class ArduinoPulseGUI:
     def on_key_press(self, event):
         if event.char in '1234' and self.connected:
             self.send_pulse(int(event.char))
+
+    def setup_logo(self):
+        """Configura el logo de Megaomega en la esquina inferior derecha"""
+        try:
+            # Cargar y redimensionar el logo
+            logo_path = os.path.join("imagenes", "Megaomega.png")
+            if os.path.exists(logo_path):
+                # Cargar imagen
+                img = Image.open(logo_path)
+                # Redimensionar a tamaño muy pequeño (25x25 pixels)
+                img_resized = img.resize((25, 25), Image.Resampling.LANCZOS)
+                self.logo_photo = ImageTk.PhotoImage(img_resized)
+
+                # Crear label para el logo en la esquina inferior derecha
+                self.logo_label = tk.Label(self.root, image=self.logo_photo)
+                self.logo_label.place(relx=1.0, rely=1.0, anchor='se', x=-5, y=-5)
+            else:
+                print("Logo Megaomega.png no encontrado en la carpeta imagenes")
+        except Exception as e:
+            print(f"Error cargando logo: {e}")
 
     def on_closing(self):
         self.disconnect()

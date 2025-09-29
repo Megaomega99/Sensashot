@@ -1,200 +1,138 @@
 # Sensashot
 
-**Interfaz de control para envío de triggers sincronizados al sistema de adquisición de datos OpenBCI Cyton + Daisy con estimulaciones visuales integradas.**
+**Sistema modular para control de triggers sincronizados y registro de estímulos sensoriales.**
 
 ## Descripción General
 
-Sensashot es un sistema completo para investigación en neurociencia que permite la sincronización precisa entre:
+Sensashot ofrece dos versiones distintas para diferentes necesidades de investigación:
 
-- **Triggers de control** enviados via Arduino al sistema OpenBCI Cyton + Daisy
-- **Estimulaciones visuales** controladas y temporizadas
-- **Registro de eventos** para análisis posterior
-- **Interfaz intuitiva** para el control experimental
+1. **Versión Arduino**: Control directo de hardware con triggers al OpenBCI
+2. **Versión Web**: Interfaz web para registro temporal sin hardware
 
 ## Versiones Disponibles
 
-### 🏢 **Versión PRO** (`/PRO/`)
-Interfaz gráfica completa con funcionalidades avanzadas:
+### 🔌 **Versión Arduino** (`/sensashot-arduino/`)
+Sistema completo con control de hardware para OpenBCI Cyton + Daisy:
 
 **Características:**
-- Interfaz GUI con Tkinter para control intuitivo
-- Control de pulsos de 200ms a pines digitales del Arduino (3, 5, 6, 9)
+- Control de Arduino via puerto serie
+- Envío de pulsos de 200ms a pines digitales (3, 5, 6, 9)
+- Interfaz GUI con Tkinter (versión PRO)
 - Presentación sincronizada de imágenes de estímulo
 - Registro automático de eventos con timestamps
-- Configuración flexible del puerto COM
 - Exportación de datos en formato CSV
+- Versión MPV minimalista incluida
 
 **Instalación:**
 ```bash
-cd PRO
+cd sensashot-arduino
 pip install -r requirements.txt
 pio run -t upload  # Cargar código Arduino
 python interfaz_cliente.py
 ```
 
-### ⚡ **Versión MPV** (`/MPV/`)
-Versión mínima viable para control básico:
+### 🌐 **Versión Web** (`/sensashot-web/`)
+Interfaz web pura sin dependencias de hardware:
 
 **Características:**
-- Control directo por teclado (teclas 1-4)
-- Envío de pulsos a pines específicos del Arduino
-- Comunicación serie optimizada
-- Interfaz minimalista
+- Interfaz web moderna HTML/CSS/JavaScript
+- Registro de estímulos olfativos, hápticos y visuales
+- Timestamps precisos en milisegundos
+- Sin dependencias de Arduino o hardware externo
+- Configuración flexible de tiempo de exposición
+- Funciona en cualquier dispositivo con navegador
+- Exportación CSV automática
 
 **Uso:**
 ```bash
-cd MPV
-python control_pulsos_simple.py
+cd sensashot-web
+python -m http.server 8000
+# Abrir: http://localhost:8000
 ```
-
-## Configuración del Hardware
-
-**Arduino UNO - Mapeo de Pines:**
-- **Pin 3**: Trigger Canal 1 (Tecla '1')
-- **Pin 5**: Trigger Canal 2 (Tecla '2')
-- **Pin 6**: Trigger Canal 3 (Tecla '3')
-- **Pin 9**: Trigger Canal 4 (Tecla '4')
-
-**Conexión OpenBCI:**
-- Conectar pines digitales Arduino → Entradas trigger OpenBCI Cyton + Daisy
-- Configurar baudrate: 9600
 
 ## Casos de Uso
 
-### Investigación EEG
-- Presentación de estímulos visuales sincronizados
-- Marcado temporal preciso de eventos
-- Análisis de potenciales evocados
+### Investigación EEG/BCI
+- **Versión Arduino**: Triggers precisos para OpenBCI, análisis de potenciales evocados
+- **Versión Web**: Registro temporal para correlación posterior con datos EEG
 
-### Experimentos BCI
-- Control de paradigmas P300
-- Sincronización estímulo-respuesta
-- Registro de sesiones experimentales
+### Estudios de Percepción Sensorial
+- **Estímulos olfativos**: Registro temporal de aplicación de aromas
+- **Estímulos hápticos**: Timing de estímulos táctiles/vibratorios
+- **Estímulos visuales**: Presentación controlada de imágenes
 
-## Requisitos del Sistema
+### Aplicaciones Clínicas
+- **Versión Arduino**: Paradigmas P300, sincronización estímulo-respuesta
+- **Versión Web**: Registro móvil, estudios en campo
 
-- **Hardware**: Arduino UNO, OpenBCI Cyton + Daisy
-- **Software**: Python 3.7+, PlatformIO
-- **Permisos**: Administrador (Windows) para captura de teclas
-- **Dependencias**: Ver `requirements.txt` en cada versión
+## Comparación de Versiones
 
-## Guía de Instalación Completa
+| Característica | Arduino | Web |
+|----------------|---------|-----|
+| Hardware requerido | ✅ Arduino + OpenBCI | ❌ Solo navegador |
+| Triggers hardware | ✅ Sí | ❌ No |
+| Multiplataforma | ⚠️ Python requerido | ✅ Cualquier dispositivo |
+| Precisión timing | ✅ Alta (hardware) | ⚠️ Dependiente del navegador |
+| Facilidad uso | ⚠️ Instalación requerida | ✅ Inmediato |
+| Costo setup | ⚠️ Hardware adicional | ✅ Gratis |
 
-### 1. Instalación de Software Base
+## Requisitos
 
-#### Python 3.7+
+### Versión Arduino
+- Arduino UNO + OpenBCI Cyton + Daisy
+- Python 3.7+ con PlatformIO
+- Windows: Permisos de administrador
+
+### Versión Web
+- Navegador moderno (Chrome 70+, Firefox 65+, Safari 12+)
+- Opcional: Servidor local (Python, Node.js, etc.)
+
+## Instalación Rápida
+
+### Versión Arduino
 ```bash
-# Descargar desde https://www.python.org/downloads/
-# Durante la instalación, marcar "Add Python to PATH"
-```
-
-#### PlatformIO Core
-```bash
-# Opción 1: Instalación independiente
-pip install platformio
-
-# Opción 2: VS Code Extension
-# Instalar "PlatformIO IDE" desde VS Code Extensions
-```
-
-#### Git (Opcional)
-```bash
-# Descargar desde https://git-scm.com/downloads
-```
-
-### 2. Configuración del Proyecto
-
-#### Clonar/Descargar Proyecto
-```bash
+# 1. Clonar repositorio
 git clone [URL_DEL_REPOSITORIO]
-cd Sensashot
-```
+cd Sensashot/sensashot-arduino
 
-#### Instalar Dependencias Python
-```bash
-# Para versión PRO
-cd PRO
+# 2. Instalar dependencias
 pip install -r requirements.txt
 
-# Para versión MPV
-cd ../MPV
-pip install -r requirements.txt  # si existe
-```
-
-### 3. Configuración del Hardware Arduino
-
-#### Cargar Firmware Arduino
-```bash
-# Desde la carpeta del proyecto con platformio.ini
+# 3. Cargar código Arduino
 pio run -t upload
 
-# O usar Arduino IDE con el código .ino correspondiente
+# 4. Ejecutar interfaz
+python interfaz_cliente.py
 ```
 
-#### Verificar Puerto COM
+### Versión Web
 ```bash
-# Windows: Revisar Device Manager > Ports (COM & LPT)
-# Actualizar puerto en el código Python si es necesario
+# 1. Navegar al directorio web
+cd Sensashot/sensashot-web
+
+# 2. Iniciar servidor local
+python -m http.server 8000
+
+# 3. Abrir navegador
+# http://localhost:8000
 ```
 
-### 4. Conexiones Hardware
+## Configuración Hardware (Solo Versión Arduino)
 
-#### Arduino UNO ↔ OpenBCI Cyton + Daisy
-
-Para las conexiones detalladas entre Arduino y OpenBCI, consultar:
-- **Documentación oficial**: https://docs.openbci.com/Cyton/CytonExternal/
+**Mapeo de Pines Arduino UNO:**
+- Pin 3 → OpenBCI D11 (Canal 1)
+- Pin 5 → OpenBCI D12 (Canal 2)
+- Pin 6 → OpenBCI D13 (Canal 3)
+- Pin 9 → OpenBCI D18 (Canal 4)
+- GND → OpenBCI GND
+- 5V → OpenBCI DVDD
 
 **Diagrama de Conexiones:**
 
 <img width="1219" height="1112" alt="image" src="https://github.com/user-attachments/assets/14f23aee-3cd4-477f-ac1b-f52db0a1c79a" />
 
+## Documentación Detallada
 
-**Conexiones específicas del diagrama:**
-- Arduino Pin 3 → OpenBCI Digital Input D11 (Cable Celeste)
-- Arduino Pin 5 → OpenBCI Digital Input D12 (Cable Rojo)
-- Arduino Pin 6 → OpenBCI Digital Input D13 (Cable Verde)
-- Arduino Pin 9 → OpenBCI Digital Input D18 (Cable Naranja)
-- Arduino GND → OpenBCI GND (Cable Negro)
-- Arduino 5V → OpenBCI DVDD (Cable Rojo - Alimentación)
-
-### 5. Prueba del Sistema
-
-#### Verificar Comunicación
-```bash
-# Ejecutar versión básica para probar conexión
-cd MPV
-python control_pulsos_simple.py
-```
-
-#### Ejecutar Versión Completa
-```bash
-# Ejecutar interfaz gráfica PRO
-cd PRO
-python interfaz_cliente.py
-```
-
-### 6. Solución de Problemas Comunes
-
-#### Error de Puerto Serie
-- Verificar que el Arduino esté conectado
-- Confirmar el puerto COM correcto
-- Cerrar otras aplicaciones que usen el puerto
-
-#### Permisos en Windows
-- Ejecutar como Administrador para captura de teclas
-- Configurar antivirus para permitir acceso al puerto serie
-
-#### Dependencias Faltantes
-```bash
-# Reinstalar dependencias
-pip install --upgrade -r requirements.txt
-```
-
-### 7. Notas Importantes
-
-- **Baudrate**: Mantener 9600 en Arduino y Python
-- **Timing**: Los pulsos están configurados a 200ms
-- **Sincronización**: Verificar timestamps en los logs para confirmar precisión
-- **Backup**: Guardar configuraciones antes de modificar código
-
-Para más detalles sobre las conexiones específicas de OpenBCI, consultar la documentación oficial en el enlace proporcionado y seguir el diagrama de conexiones de referencia.
+- **Arduino**: Ver `sensashot-arduino/README.md`
+- **Web**: Ver `sensashot-web/README.md`
+- **OpenBCI**: https://docs.openbci.com/Cyton/CytonExternal/
