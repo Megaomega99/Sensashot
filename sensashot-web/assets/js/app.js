@@ -11,6 +11,7 @@ class StimulusLogger {
             olfactory: 0,
             haptic: 0,
             visual: 0,
+            baseline: 0,
             total: 0
         };
 
@@ -30,6 +31,7 @@ class StimulusLogger {
         document.getElementById('olfactoryBtn').addEventListener('click', () => this.logStimulus('olfactory'));
         document.getElementById('hapticBtn').addEventListener('click', () => this.logStimulus('haptic'));
         document.getElementById('visualBtn').addEventListener('click', () => this.logVisualStimulus());
+        document.getElementById('baselineBtn').addEventListener('click', () => this.logStimulus('baseline'));
 
         // Configuration controls
         const exposureTimeSlider = document.getElementById('exposureTime');
@@ -73,6 +75,10 @@ class StimulusLogger {
             case '3':
                 e.preventDefault();
                 this.logVisualStimulus();
+                break;
+            case '4':
+                e.preventDefault();
+                this.logStimulus('baseline');
                 break;
             case 'Escape':
                 this.closeVisualModal();
@@ -283,6 +289,7 @@ class StimulusLogger {
         document.getElementById('olfactoryTotal').textContent = this.counters.olfactory;
         document.getElementById('hapticTotal').textContent = this.counters.haptic;
         document.getElementById('visualTotal').textContent = this.counters.visual;
+        document.getElementById('baselineTotal').textContent = this.counters.baseline;
         document.getElementById('sessionTotal').textContent = this.counters.total;
     }
 
@@ -290,6 +297,7 @@ class StimulusLogger {
         document.getElementById('olfactoryCounter').textContent = this.counters.olfactory;
         document.getElementById('hapticCounter').textContent = this.counters.haptic;
         document.getElementById('visualCounter').textContent = this.counters.visual;
+        document.getElementById('baselineCounter').textContent = this.counters.baseline;
         document.getElementById('totalStimuli').textContent = this.counters.total;
     }
 
@@ -345,7 +353,7 @@ class StimulusLogger {
 
             // Reset all data
             this.stimuliLog = [];
-            this.counters = { olfactory: 0, haptic: 0, visual: 0, total: 0 };
+            this.counters = { olfactory: 0, haptic: 0, visual: 0, baseline: 0, total: 0 };
             this.availableImages = [...this.usedImages, ...this.availableImages];
             this.usedImages = [];
             this.sessionStartTime = new Date();
@@ -468,5 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('1 - Estímulo Olfativo');
     console.log('2 - Estímulo Háptico');
     console.log('3 - Estímulo Visual');
+    console.log('4 - Línea Base');
     console.log('ESC - Cerrar modal visual');
 });

@@ -457,6 +457,10 @@ input[type="range"]::-webkit-slider-thumb {
     border-color: #feca57;
 }
 
+.stimulus-btn.baseline {
+    border-color: #a29bfe;
+}
+
 .stimulus-btn.olfactory:hover {
     background: linear-gradient(135deg, #ff6b6b, #ee5a24);
     color: white;
@@ -469,6 +473,11 @@ input[type="range"]::-webkit-slider-thumb {
 
 .stimulus-btn.visual:hover {
     background: linear-gradient(135deg, #feca57, #ff9f43);
+    color: white;
+}
+
+.stimulus-btn.baseline:hover {
+    background: linear-gradient(135deg, #a29bfe, #6c5ce7);
     color: white;
 }
 
@@ -488,6 +497,10 @@ input[type="range"]::-webkit-slider-thumb {
 
 .stimulus-btn.visual .btn-icon {
     color: #feca57;
+}
+
+.stimulus-btn.baseline .btn-icon {
+    color: #a29bfe;
 }
 
 .stimulus-btn:hover .btn-icon {
@@ -633,6 +646,10 @@ input[type="range"]::-webkit-slider-thumb {
     color: #feca57;
 }
 
+.log-entry.baseline {
+    color: #a29bfe;
+}
+
 .timestamp {
     font-weight: 600;
     margin-right: 0.5rem;
@@ -689,6 +706,10 @@ input[type="range"]::-webkit-slider-thumb {
 
 .stat-card.visual .stat-icon {
     background: linear-gradient(135deg, #feca57, #ff9f43);
+}
+
+.stat-card.baseline .stat-icon {
+    background: linear-gradient(135deg, #a29bfe, #6c5ce7);
 }
 
 .stat-card.total .stat-icon {
